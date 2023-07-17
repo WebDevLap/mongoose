@@ -8,10 +8,11 @@ export const HeaderContainer = styled(Container)`
   min-height: ${UI_Funcs.pxToRem(50)};
   border-bottom: 2px solid ${({theme}) => theme.colors.textColor};
   display: flex;
-  padding: 5px 0;
+  padding: ${UI_Funcs.pxToEm(5)} 0;
   align-items: center;
   flex-wrap: wrap;
   justify-content: space-between;
+  margin-bottom: ${UI_Funcs.pxToEm(5)};
 `;
 
 

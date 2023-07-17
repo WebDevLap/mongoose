@@ -7,11 +7,12 @@ import { Footer } from "./modules/Footer";
 import axios from "axios";
 import { Route, Routes } from "react-router";
 import { Main } from "./modules/Main";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from "react-redux";
 import { setWeatherData } from "./store/slices/WeatherSlice";
+import { setTheme } from "./store/slices/ThemeSlice";
 
 const AppEl = styled.div`
-  min-height: 100vh;
+  min-height: 97vh;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -20,7 +21,30 @@ const AppEl = styled.div`
 
 function App() {
   const theme = useAppSelector((state) => state.theme.theme);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    const themeFromLS = localStorage.getItem("theme");
+    if (!themeFromLS) {
+      localStorage.setItem("theme", "light");
+    }
+  }, []);
+
+  React.useEffect(() => {
+    const themeFromLS = localStorage.getItem("theme");
+    console.log(themeFromLS);
+    if (!themeFromLS) {
+      localStorage.setItem("theme", "light");
+    } else {
+      setTimeout(() => {
+        if (themeFromLS === "dark") {
+          dispatch(setTheme(themeFromLS));
+        } else if (themeFromLS === "light") {
+          dispatch(setTheme(themeFromLS));
+        }
+      }, 500);
+    }
+  }, []);
 
   React.useEffect(() => {
     if (theme === "dark") {
@@ -36,7 +60,7 @@ function App() {
         const { data } = await axios.get(
           `https://api.openweathermap.org/data/2.5/weather?q=London&appid=${KEY}`
         );
-        dispatch(setWeatherData(data))
+        dispatch(setWeatherData(data));
       } catch (err) {
         console.log("axios error");
       }

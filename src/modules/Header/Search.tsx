@@ -35,7 +35,7 @@ const SearchLogo = styled.div<{ active: boolean }>`
       background: url("data:image/svg+xml;charset=utf-8,%3Csvg width=%2220%22 height=%2220%22 viewBox=%220 0 20 20%22 fill=%22none%22 xmlns=%22http://www.w3.org/2000/svg%22%3E %3Cpath d=%22M16.7266 4.5933C17.0911 4.22881 17.0911 3.63786 16.7266 3.27337C16.3621 2.90888 15.7712 2.90888 15.4067 3.27337L10 8.68007L4.5933 3.27337C4.22881 2.90888 3.63786 2.90888 3.27337 3.27337C2.90888 3.63786 2.90888 4.22881 3.27337 4.5933L8.68007 10L3.27337 15.4067C2.90888 15.7712 2.90888 16.3621 3.27337 16.7266C3.63786 17.0911 4.22881 17.0911 4.5933 16.7266L10 11.3199L15.4067 16.7266C15.7712 17.0911 16.3621 17.0911 16.7266 16.7266C17.0911 16.3621 17.0911 15.7712 16.7266 15.4067L11.3199 10L16.7266 4.5933Z%22 fill=%22%23222426%22/%3E %3C/svg%3E")
         center center no-repeat !important;
 
-      opacity: .3;
+      opacity: 0.3;
     `}
 `;
 
@@ -45,37 +45,30 @@ const SearchInput = styled.input`
 `;
 
 export const Search = () => {
-  const searchInputoRef = React.useRef<HTMLInputElement>(null);
+  const [searchInput, setSearchInput] = React.useState("");
   const [searchLogoActive, setSearchLogoActive] =
     React.useState<boolean>(false);
 
-  function onSearchInputChange(e: any) {
-    if (!e.target) return;
-    if (e.target.value.length === 0) {
+  React.useEffect(() => {
+    if (searchInput.length === 0) {
       setSearchLogoActive(false);
-      console.log(e.target.value);
-      console.log(searchLogoActive);
     } else {
       setSearchLogoActive(true);
-      console.log(e.target.value);
-      console.log(searchLogoActive);
     }
-  }
+  }, [searchInput]);
 
-  function onSearchLogoClick(){
-    if(searchInputoRef.current){
-      searchInputoRef.current.value = ''
-    }
+  function onSearchLogoClick() {
+    setSearchInput("");
   }
 
   return (
     <SearchEl>
       <SearchInput
-        ref={searchInputoRef}
-        onChange={(e) => onSearchInputChange(e)}
+        onChange={(e) => setSearchInput(e.target.value)}
+        value={searchInput}
         placeholder="Город или район"
       />
-      <SearchLogo active={searchLogoActive} onClick={onSearchLogoClick}/>
+      <SearchLogo active={searchLogoActive} onClick={onSearchLogoClick} />
     </SearchEl>
   );
 };

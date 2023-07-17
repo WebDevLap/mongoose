@@ -43,7 +43,7 @@ const TogglerText = styled.span`
 const TogglerElement = styled.div<{ themeType: ThemeType }>`
   height: ${UI_Funcs.pxToEm(32)};
   width: ${UI_Funcs.pxToEm(32)};
-  background-color: #ffcc25;
+  background-color: ${(props) => props.theme.colors.orange};
   border-radius: 100%;
   position: absolute;
   top: 50%;
@@ -84,17 +84,17 @@ const TogglerElement = styled.div<{ themeType: ThemeType }>`
 export const ThemeToggler: React.FC = () => {
   const theme = useAppSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
+
+  function toggleClick() {
+    theme === "light"
+      ? dispatch(setTheme("dark"))
+      : dispatch(setTheme("light"));
+  }
+
   return (
     <Theme>
       <TogglerText>Тема </TogglerText>
-      <Toggler
-        onClick={() =>
-          theme === "light"
-            ? dispatch(setTheme("dark"))
-            : dispatch(setTheme("light"))
-        }
-        themeType={theme}
-      >
+      <Toggler onClick={toggleClick} themeType={theme}>
         <TogglerElement themeType={theme}></TogglerElement>
       </Toggler>
     </Theme>
