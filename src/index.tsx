@@ -53,6 +53,10 @@ h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
 
 body{
 	padding: 15px;
+	position: relative;
+
+	max-width: 100vw;
+	overflow: hidden;
 }
 `;
 

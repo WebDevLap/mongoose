@@ -14,6 +14,7 @@ const FooterContainer = styled(Container)`
   align-items: center;
   font-weight: 700;
   font-size: ${UI_Funcs.pxToRem(30)};
+  padding-top: ${UI_Funcs.pxToEm(5)};
 `;
 
 const FooterList = styled.ul``;

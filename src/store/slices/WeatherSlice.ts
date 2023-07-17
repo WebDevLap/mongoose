@@ -2,7 +2,25 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   weatherData: {
-    name: ''
+    name: "",
+    coord: {
+      lon: "",
+      lat: "",
+    },
+    main: {
+      temp: 0,
+      feels_like: 0,
+      humidity: 0,
+      pressure: 0,
+    },
+    wind: {
+      speed: 0,
+    },
+    weather: [
+      {
+        description: "",
+      },
+    ],
   },
 };
 

@@ -7,6 +7,7 @@ const HeaderLogo = styled(NavLink)`
   display: inline-flex;
   align-items: center;
   cursor: pointer;
+  margin-right: ${UI_Funcs.pxToEm(20)};
 `;
 
 export const HeaderLogoImg = styled.img`

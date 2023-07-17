@@ -32,7 +32,6 @@ function App() {
 
   React.useEffect(() => {
     const themeFromLS = localStorage.getItem("theme");
-    console.log(themeFromLS);
     if (!themeFromLS) {
       localStorage.setItem("theme", "light");
     } else {
@@ -62,7 +61,7 @@ function App() {
         );
         dispatch(setWeatherData(data));
       } catch (err) {
-        console.log("axios error");
+        console.log("axios error ( weather data )");
       }
     })();
   }, []);

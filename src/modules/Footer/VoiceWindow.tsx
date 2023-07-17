@@ -6,7 +6,7 @@ const VoiceWindowEl = styled.div<{ active: boolean }>`
   transform: scale(1);
   position: absolute;
   top: 50%;
-  max-width: 450px;
+  max-width: ${UI_Funcs.pxToRem(450)};
   width: 100%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -22,7 +22,7 @@ const VoiceWindowEl = styled.div<{ active: boolean }>`
 `;
 
 const VoiceWindowTitle = styled.h2`
-  font-size: 22px;
+  font-size: ${UI_Funcs.pxToRem(22)};
   text-align: center;
   margin-bottom: ${UI_Funcs.pxToEm(15)};
   color: ${({ theme }) => theme.colors.textColor};
@@ -44,7 +44,7 @@ const ChoiceItem = styled.a`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
+  padding: ${UI_Funcs.pxToEm(10)};
   font-size: ${UI_Funcs.pxToRem(18)};
   cursor: pointer;
   user-select: none;
