@@ -9,6 +9,10 @@ const SearchEl = styled.div`
   padding: ${UI_Funcs.pxToEm(10)};
   width: 250px;
   position: relative;
+
+  @media (max-width: ${UI_Funcs.pxToEm(430)}) {
+    width: 190px;
+  }
 `;
 
 const SearchLogo = styled.div<{ active: boolean }>`

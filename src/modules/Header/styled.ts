@@ -58,6 +58,7 @@ export const BurgerMenu = styled.div<{ active: boolean }>`
   /* position: fixed; */
   top: ${UI_Funcs.pxToRem(25)};
   right: ${UI_Funcs.pxToRem(25)};
+  cursor: pointer;
 
   span {
     display: block;

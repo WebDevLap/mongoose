@@ -56,7 +56,7 @@ body{
 	position: relative;
 
 	max-width: 100vw;
-	overflow: hidden;
+	overflow-x: hidden;
 }
 `;
 
