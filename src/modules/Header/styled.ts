@@ -1,9 +1,9 @@
 import styled, { css } from "styled-components";
 import { Container } from "../../UI/components";
 import { UI_Funcs } from "../../UI/UI_Funcs/UI_Funcs";
+import { NavLink } from "react-router-dom";
 
-export const Header = styled.section`
-`;
+export const Header = styled.section``;
 
 export const HeaderContainer = styled(Container)`
   min-height: ${UI_Funcs.pxToRem(50)};
@@ -13,14 +13,44 @@ export const HeaderContainer = styled(Container)`
   margin-bottom: ${UI_Funcs.pxToEm(15)};
   align-items: center;
   justify-content: space-between;
+  overflow: hidden;
 `;
 
-export const HeaderAuth = styled.ul``;
+export const HeaderAuth = styled.ul`
+  display: flex;
 
-export const HeaderAuthSignIn = styled.li``;
+  ${UI_Funcs.pcMedia(css`
+    flex-direction: column;
+    align-items: center;
+    font-size: ${UI_Funcs.pxToRem(22)};
+    font-weight: 600;
+  `)}
+`;
 
-export const HeaderAuthSignUp = styled.section``;
+export const HeaderAuthSign = styled(NavLink)<{ orange?: boolean }>`
+  padding: ${UI_Funcs.pxToEm(15)};
+  border-radius: ${UI_Funcs.pxToEm(15)};
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.textColor};
+  cursor: pointer;
+  word-break: break-all;
+  text-align: center;
+  border: 2px solid transparent;
 
+  ${(props) =>
+    props.orange &&
+    css`
+      background-color: ${({ theme }) => theme.colors.orange};
+    `}
+
+  &.active {
+    border-radius: ${UI_Funcs.pxToEm(10)};
+    border: 2px solid ${({ theme }) => theme.colors.textColor};
+  }
+  ${UI_Funcs.pcMedia(css`
+    width: 100%;
+  `)}
+`;
 export const Nav = styled.nav<{ active: boolean }>`
   align-items: center;
   flex-wrap: wrap;
@@ -35,23 +65,28 @@ export const Nav = styled.nav<{ active: boolean }>`
     right: 0;
     flex-direction: column;
     margin: 0px;
-    max-width: ${UI_Funcs.pxToRem(250)};
+    justify-content: flex-start;
+    width: auto;
+    min-width: ${UI_Funcs.pxToRem(180)};
+    max-width: 65vw;
     background-color: ${({ theme }) => theme.colors.orange};
     height: 100%;
     z-index: 15;
     transform: translate(100%, 0);
     padding: 20px 0;
 
-
     ${(props) =>
       props.active &&
       css`
         transform: translate(0, 0);
       `}
+
+    
   `)}
 `;
 
 export const BurgerMenu = styled.div<{ active: boolean }>`
+
   display: none;
   width: ${UI_Funcs.pxToRem(60)};
   height: ${UI_Funcs.pxToRem(30)};

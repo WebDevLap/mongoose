@@ -7,22 +7,15 @@ const SearchEl = styled.div`
   background-color: ${({ theme }) => theme.colors.lightGrey};
 
   padding: ${UI_Funcs.pxToEm(10)};
-  width: 250px;
   position: relative;
-
-  @media (max-width: ${UI_Funcs.pxToEm(430)}) {
-    width: 190px;
-  }
+  display: flex;
+  align-items: center;
 `;
 
 const SearchLogo = styled.div<{ active: boolean }>`
   width: 30px;
   height: 30px;
   display: inline-block;
-  position: absolute;
-  top: 50%;
-  transform: translate(0, -50%);
-  right: 10px;
   transition: 0s;
   cursor: pointer;
 
@@ -46,6 +39,11 @@ const SearchLogo = styled.div<{ active: boolean }>`
 const SearchInput = styled.input`
   font-size: ${UI_Funcs.pxToRem(16)};
   font-weight: 500;
+  width: 220px;
+
+  @media (max-width: ${UI_Funcs.pxToEm(430)}) {
+    width: 145px;
+  }
 `;
 
 export const Search = () => {

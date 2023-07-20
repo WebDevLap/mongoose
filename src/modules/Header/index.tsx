@@ -4,8 +4,7 @@ import {
   Header as Headerr,
   HeaderContainer,
   HeaderAuth,
-  HeaderAuthSignIn,
-  HeaderAuthSignUp,
+  HeaderAuthSign,
   Nav,
   BurgerMenu,
 } from "./styled";
@@ -35,6 +34,10 @@ export const Header: React.FC = () => {
     return document.removeEventListener("click", (e) => listener(e));
   }, []);
 
+  function onAuthClick() {
+    dispatch(setIsBurgerActive(false));
+  }
+
   return (
     <Headerr>
       <HeaderContainer>
@@ -45,10 +48,15 @@ export const Header: React.FC = () => {
           onClick={(e) => e.stopPropagation()}
           ref={navRef}
         >
+          <Logo secondType/>
           <ThemeToggler />
           <HeaderAuth>
-            <HeaderAuthSignIn></HeaderAuthSignIn>
-            <HeaderAuthSignUp></HeaderAuthSignUp>
+            <HeaderAuthSign onClick={onAuthClick} to="/signUp">
+              Зарегистрироваться
+            </HeaderAuthSign>
+            <HeaderAuthSign onClick={onAuthClick} orange to="/signIn">
+              Войти
+            </HeaderAuthSign>
           </HeaderAuth>
         </Nav>
         <BurgerMenu active={isBurgerActive} onClick={(e) => onBurgerClick(e)}>

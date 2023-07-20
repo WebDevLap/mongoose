@@ -6,10 +6,12 @@ import { darkTheme, lightTheme } from "./UI/Themes";
 import { Footer } from "./modules/Footer";
 import axios from "axios";
 import { Route, Routes } from "react-router";
-import { Main } from "./modules/Main";
 import { useDispatch } from "react-redux";
 import { setWeatherData } from "./store/slices/WeatherSlice";
 import { setTheme } from "./store/slices/ThemeSlice";
+import { SignUp } from "./modules/SignUp";
+import { ModalWindow } from "./components/ModalWindow";
+import { SignIn } from "./modules/SignIn";
 
 const AppEl = styled.div`
   min-height: 97vh;
@@ -69,9 +71,11 @@ function App() {
   return (
     <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
       <AppEl>
+        <ModalWindow />
         <Header />
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/signUp" element={<SignUp />} />
+          <Route path="/signIn" element={<SignIn />} />
         </Routes>
         <Footer />
       </AppEl>

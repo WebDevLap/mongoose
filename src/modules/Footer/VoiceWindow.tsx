@@ -4,7 +4,7 @@ import { UI_Funcs } from "../../UI/UI_Funcs/UI_Funcs";
 
 const VoiceWindowEl = styled.div<{ active: boolean }>`
   transform: scale(1);
-  position: absolute;
+  position: fixed;
   top: 50%;
   max-width: ${UI_Funcs.pxToRem(450)};
   width: 100%;
@@ -13,6 +13,7 @@ const VoiceWindowEl = styled.div<{ active: boolean }>`
   background-color: ${({ theme }) => theme.colors.grey};
   padding: ${UI_Funcs.pxToEm(20)};
   border-radius: ${UI_Funcs.pxToEm(10)};
+  z-index: 10;
 
   ${(props) =>
     !props.active &&
