@@ -4,6 +4,7 @@ import ThemeSlice from "./slices/ThemeSlice";
 import WeatherSlice from "./slices/WeatherSlice";
 import HeaderSlice from "./slices/HeaderSlice";
 import ModalWindowSlice from "./slices/ModalWindowSlice";
+import FilterSlice from "./slices/FilterSlice";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     weather: WeatherSlice,
     header: HeaderSlice,
     modalWindow: ModalWindowSlice,
+    filter: FilterSlice,
   },
 });
 

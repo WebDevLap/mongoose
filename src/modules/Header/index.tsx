@@ -7,6 +7,8 @@ import {
   HeaderAuthSign,
   Nav,
   BurgerMenu,
+  Settings,
+  HeaderItem,
 } from "./styled";
 import { ThemeToggler } from "./ThemeToggler";
 import { Logo } from "./Logo";
@@ -37,19 +39,20 @@ export const Header: React.FC = () => {
   function onAuthClick() {
     dispatch(setIsBurgerActive(false));
   }
+  const imgae = "https://img.icons8.com/?size=1x&id=nHPBN6xIs3Mg&format=png";
 
   return (
     <Headerr>
       <HeaderContainer>
         <Logo />
-        <Search />
         <Nav
           active={isBurgerActive}
           onClick={(e) => e.stopPropagation()}
           ref={navRef}
         >
-          <Logo secondType/>
+          <Logo secondType />
           <ThemeToggler />
+          <HeaderItem to='/card'>Корзина</HeaderItem>
           <HeaderAuth>
             <HeaderAuthSign onClick={onAuthClick} to="/signUp">
               Зарегистрироваться

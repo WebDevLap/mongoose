@@ -12,6 +12,8 @@ import { setTheme } from "./store/slices/ThemeSlice";
 import { SignUp } from "./modules/SignUp";
 import { ModalWindow } from "./components/ModalWindow";
 import { SignIn } from "./modules/SignIn";
+import { Main } from "./modules/Main";
+import { Settings } from "./modules/Settings";
 
 const AppEl = styled.div`
   min-height: 97vh;
@@ -74,8 +76,10 @@ function App() {
         <ModalWindow />
         <Header />
         <Routes>
+          <Route path="/" element={<Main />} />
           <Route path="/signUp" element={<SignUp />} />
           <Route path="/signIn" element={<SignIn />} />
+          <Route path="/settings" element={<Settings/>}/>
         </Routes>
         <Footer />
       </AppEl>

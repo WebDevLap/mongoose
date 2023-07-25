@@ -68,7 +68,7 @@ export const Search = () => {
       <SearchInput
         onChange={(e) => setSearchInput(e.target.value)}
         value={searchInput}
-        placeholder="Город или район"
+        placeholder="Фильтр"
       />
       <SearchLogo active={searchLogoActive} onClick={onSearchLogoClick} />
     </SearchEl>

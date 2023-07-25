@@ -8,7 +8,7 @@ import {
   SignUpGlobError,
   SignUpSubmit,
 } from "./styled";
-import { USERS_DATA } from "../../API";
+import { USERS_DATA } from "../../API/API";
 import axios from "axios";
 import {
   addModalWindowItem,

@@ -3,6 +3,8 @@ import { styled } from "styled-components";
 import { Container } from "../../UI/components";
 import { UI_Funcs } from "../../UI/UI_Funcs/UI_Funcs";
 import { VoiceWindow } from "./VoiceWindow";
+import { useAppSelector } from "../../store/store";
+import { Settings } from "../Header/styled";
 
 const FooterEl = styled.footer``;
 
@@ -16,6 +18,9 @@ const FooterContainer = styled(Container)`
   font-size: ${UI_Funcs.pxToRem(30)};
   padding-top: ${UI_Funcs.pxToEm(5)};
   margin-top: ${UI_Funcs.pxToEm(20)};
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const FooterList = styled.ul``;
@@ -37,6 +42,7 @@ export const Footer: React.FC = () => {
     setLink(link);
     setIsVoiceActive(!isVoiceActive);
   }
+  const isDark = useAppSelector((state) => state.theme.theme);
 
   return (
     <FooterEl>
@@ -60,6 +66,9 @@ export const Footer: React.FC = () => {
             </span>
           </FooterItem>
         </FooterList>
+        <Settings isDark={isDark === "dark" ? true : false} to="/settings">
+          Настройки
+        </Settings>
       </FooterContainer>
     </FooterEl>
   );

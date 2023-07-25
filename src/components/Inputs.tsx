@@ -4,20 +4,21 @@ import { UI_Funcs } from "../UI/UI_Funcs/UI_Funcs";
 
 interface IInputEl {
   placehold?: string;
-  isInputFocus: boolean;
-  isInputText: boolean;
+  isInputFocus?: boolean;
+  isInputText?: boolean;
   error?: string;
   isError?: boolean;
+  width?: string;
 }
 
-const InputEl = styled.div<IInputEl>`
+export const InputEl = styled.div<IInputEl>`
   border: 2px solid ${({ theme }) => theme.colors.orange};
   display: inline-block;
-  max-width: ${UI_Funcs.pxToRem(450)};
+  background-color: ${({ theme }) => theme.colors.contentColor};
+  max-width: ${(props) => (props.width ? props.width : UI_Funcs.pxToRem(450))};
   width: 100%;
   padding: ${UI_Funcs.pxToEm(10)};
   border-radius: ${UI_Funcs.pxToEm(10)};
-  background-color: transparent;
   display: flex;
   justify-content: space-between;
   align-items: center;

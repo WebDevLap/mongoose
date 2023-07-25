@@ -12,7 +12,7 @@ import {
 } from "../SignUp/styled";
 import { emailValider, passwordValider } from "../SignUp";
 import axios from "axios";
-import { USERS_DATA } from "../../API";
+import { USERS_DATA } from "../../API/API";
 import { useDispatch } from "react-redux";
 import {
   addModalWindowItem,
