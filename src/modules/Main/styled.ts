@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import { UI_Funcs } from "../../UI/UI_Funcs/UI_Funcs";
+import styled from 'styled-components';
+import { UI_Funcs } from '../../UI/UI_Funcs/UI_Funcs';
 
 export const CardEl = styled.div``;
 export const CardContainer = styled.div`
@@ -28,6 +28,11 @@ export const CardTitle = styled.h2`
   text-align: center;
   font-size: ${UI_Funcs.pxToRem(18)};
   color: ${({ theme }) => theme.colors.textColor};
+
+  mark {
+    background-color: ${({ theme }) => theme.colors.orange};
+    color: inherit;
+  }
 `;
 
 export const CardPrice = styled.div`
@@ -71,7 +76,7 @@ export const CardCounterIncrement = styled.div`
 
   &::before,
   &:after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     border-radius: ${UI_Funcs.pxToEm(5)};
@@ -106,7 +111,7 @@ export const CardCounterDecrement = styled.div`
   position: relative;
   cursor: pointer;
   &:after {
-    content: "";
+    content: '';
     display: block;
     position: absolute;
     border-radius: ${UI_Funcs.pxToEm(5)};

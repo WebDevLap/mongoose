@@ -2,7 +2,7 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://webdevlap.github.io/weather/",
+  "homepage": "https://webdevlap.github.io/mongoose/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.5",
     "@testing-library/jest-dom": "^5.14.1",
@@ -15,6 +15,7 @@
     "@types/react-router-dom": "^5.3.3",
     "axios": "^1.4.0",
     "react": "^18.2.0",
+    "react-content-loader": "^6.2.1",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.45.2",
     "react-redux": "^8.1.1",

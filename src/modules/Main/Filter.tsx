@@ -1,14 +1,15 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import img1 from "./images/img1.svg";
-import { Input, InputEl, InputField } from "../../components/Inputs";
-import { UI_Funcs } from "../../UI/UI_Funcs/UI_Funcs";
-import { useDispatch } from "react-redux";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import img1 from './images/img1.svg';
+import { UI_Funcs } from '../../UI/UI_Funcs/UI_Funcs';
+import { useDispatch } from 'react-redux';
 import {
   setFilterName,
   setFilterPriceFrom,
   setFilterPriceTo,
-} from "../../store/slices/FilterSlice";
+} from '../../store/slices/FilterSlice';
+import { useAppSelector } from '../../store/store';
+import { FilterTracker } from './FilterTracker';
 
 const FilterEl = styled.div``;
 const FilterContainer = styled.div`
@@ -31,7 +32,7 @@ const FilterText = styled.div<{ isActive: boolean }>`
   cursor: pointer;
 
   &:after {
-    content: "";
+    content: '';
     display: block;
     margin-left: 5px;
     width: 25px;
@@ -67,15 +68,20 @@ const FilterInput = styled.input<{ maxWidth?: string }>`
   border-bottom: 2px solid ${({ theme }) => theme.colors.orange};
   font-size: 18px;
   font-weight: 500;
+  color: ${({ theme }) => theme.colors.textColor};
+  max-width: ${(props) => (props.maxWidth ? props.maxWidth : '200px')};
 
-  max-width: ${(props) => (props.maxWidth ? props.maxWidth : "200px")};
+  &::placeholder {
+    color: inherit;
+  }
 `;
 
 const FilterMenu = styled.div<{ isActive: boolean }>`
   border-radius: 0 20px 20px 20px;
   width: 100%;
   padding: 20px;
-  background-color: ${({ theme }) => theme.colors.lightGrey};
+  /* background-color: ${({ theme }) => theme.colors.grey}; */
+  border: 3px solid ${({ theme }) => theme.colors.textColor};
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -111,10 +117,9 @@ const FilterApply = styled.button`
 
 export const Filter: React.FC = () => {
   const [isActive, setIsActive] = React.useState(false);
-  const [name, setName] = React.useState("");
-  const [priceFrom, setPriceFrom] = React.useState<number>();
-  const [priceTo, setPriceTo] = React.useState<number>();
-  const [isApplyDisabled, setIsApplyDisabled] = React.useState(false);
+  const [name, setName] = React.useState('');
+  const [priceFrom, setPriceFrom] = React.useState('');
+  const [priceTo, setPriceTo] = React.useState('');
 
   const dispatch = useDispatch();
 
@@ -127,61 +132,65 @@ export const Filter: React.FC = () => {
   }
 
   function priceFromChange(e: any) {
-    if (e.target.value.length > 5) return;
+    // if (e.target.value.length > 5) return;
     setPriceFrom(e.target.value);
   }
 
   function priceToChange(e: any) {
-    if (e.target.value.length > 5) return;
+    // if (e.target.value.length > 5) return;
     setPriceTo(e.target.value);
   }
 
   function onApplyClick() {
     setIsActive(false);
-    if (name) {
+    if (typeof name === 'string') {
       dispatch(setFilterName(name));
     }
-    if (priceFrom) {
-      dispatch(setFilterPriceFrom(priceFrom));
+    if (typeof +priceFrom === 'number') {
+      dispatch(setFilterPriceFrom(+priceFrom));
     }
-    if (priceTo) {
-      dispatch(setFilterPriceTo(priceTo));
+    if (typeof +priceTo === 'number') {
+      dispatch(setFilterPriceTo(+priceTo));
     }
   }
 
   return (
-    <FilterEl>
+    <FilterEl translate='no'>
       <FilterContainer>
         <FilterText onClick={onFilterClick} isActive={isActive}>
           Фильтрация товаров
         </FilterText>
         <FilterMenuWrapper isActive={isActive}>
-          <FilterMenu isActive={isActive}>
-            <FilterMenuItem>
-              <FilterMenuText>Искать по названию: </FilterMenuText>
-              <FilterInput value={name} onChange={(e) => nameChange(e)} />
-            </FilterMenuItem>
-            <FilterMenuItem>
-              <FilterMenuText>Цена(€) : от</FilterMenuText>
-              <FilterInput
-                value={priceFrom}
-                onChange={(e) => priceFromChange(e)}
-                maxWidth="60px"
-                placeholder="(€)"
-                type="number"
-              />
-              <FilterMenuText>до</FilterMenuText>
-              <FilterInput
-                maxWidth="60px"
-                type="number"
-                placeholder="(€)"
-                value={priceTo}
-                onChange={(e) => priceToChange(e)}
-              />
-            </FilterMenuItem>
-            <FilterApply onClick={onApplyClick}>Применить</FilterApply>
-          </FilterMenu>
+          <form action="" onSubmit={(e) => e.preventDefault()}>
+            <FilterMenu isActive={isActive}>
+              <FilterMenuItem>
+                <FilterMenuText>Искать по названию: </FilterMenuText>
+                <FilterInput value={name} onChange={(e) => nameChange(e)} />
+              </FilterMenuItem>
+              <FilterMenuItem>
+                <FilterMenuText>Цена(€) : от</FilterMenuText>
+
+                <FilterInput
+                  value={priceFrom}
+                  onChange={(e) => priceFromChange(e)}
+                  maxWidth="60px"
+                  placeholder="(€)"
+                  type="number"
+                />
+                <FilterMenuText>до</FilterMenuText>
+                <FilterInput
+                  maxWidth="60px"
+                  type="number"
+                  placeholder="(€)"
+                  value={priceTo}
+                  onChange={(e) => priceToChange(e)}
+                />
+              </FilterMenuItem>
+              <FilterApply onClick={onApplyClick}>Применить</FilterApply>
+            </FilterMenu>
+          </form>
         </FilterMenuWrapper>
+        <FilterTracker setName={setName} setPriceFrom={setPriceFrom} setPriceTo={setPriceTo} />
       </FilterContainer>
     </FilterEl>
   );

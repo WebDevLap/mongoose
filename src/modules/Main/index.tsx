@@ -1,13 +1,17 @@
-import React from "react";
-import { Card } from "./Card";
-import { styled } from "styled-components";
-import { Container } from "../../UI/components";
-import { getProducts } from "../../API/API";
-import { IProducts } from "../../API/API_TYPE";
-import { Filter } from "./Filter";
-import { useAppSelector } from "../../store/store";
+import React from 'react';
+import { Card } from './Card';
+import CardLoader from './CardLoader';
+import { styled } from 'styled-components';
+import { Container } from '../../UI/components';
+import { getProducts } from '../../API/API';
+import { IProducts } from '../../API/API_TYPE';
+import { Filter } from './Filter';
+import { useAppSelector } from '../../store/store';
+import { FilterTracker } from './FilterTracker';
 
-const MainEl = styled.div``;
+const MainEl = styled.div`
+  flex: 1 1 auto;
+`;
 
 const MainContainer = styled(Container)``;
 
@@ -24,54 +28,44 @@ export const Main = () => {
   const filterPriceTo = useAppSelector((state) => state.filter.priceTo);
   const filterPriceFrom = useAppSelector((state) => state.filter.priceFrom);
   const [filteredProducts, setFilteredProducts] = React.useState<IProducts[]>();
+  const [isCardsLoading, setIsCardsLoading] = React.useState(true);
 
   React.useEffect(() => {
     (async function () {
-      const products = await getProducts();
-      setProducts(products);
+      try {
+        const products = await getProducts();
+        setProducts(products);
+      } finally {
+        setIsCardsLoading(false);
+      }
     })();
   }, []);
 
-  // React.useEffect(() => {
-  //   let prodCo = products?.filter((el) => {
-  //     if (!el.name.includes(filterName)) {
-  //       return false;
-  //     } else if (+el.priceWidthDiscount < filterPriceFrom) {
-  //       return false;
-  //     } else if (+el.priceWidthDiscount > filterPriceTo) {
-  //       return false;
-  //     } else {
-  //       return true;
-  //     }
-  //   });
-  //   console.log(prodCo);
-  //   setFilteredProducts(prodCo);
-  // }, [filterName, filterPriceTo, filterPriceFrom]);
-
   React.useEffect(() => {
-    console.log(products);
+    if (!products) return;
+    setIsCardsLoading(true);
     let prodCo = products?.filter((el) => {
-      if (!el.name.includes(filterName)) {
+      if (!el.name.toLowerCase().includes(filterName.toLowerCase())) {
         return false;
-      } else if (+el.priceWidthDiscount < filterPriceFrom) {
+      } else if (Number(el.priceWidthDiscount) < +filterPriceFrom && +filterPriceFrom !== 0) {
         return false;
-      } else if (+el.priceWidthDiscount > filterPriceTo) {
+      } else if (Number(el.priceWidthDiscount) > +filterPriceTo && +filterPriceTo !== 0) {
         return false;
-      } else {
-        return true;
       }
+      return true;
     });
-
     setFilteredProducts(prodCo);
-  }, [products]);
+    setIsCardsLoading(false);
+  }, [products, filterName, filterPriceTo, filterPriceFrom]);
 
   return (
     <MainEl>
       <MainContainer>
         <Filter />
         <MainList>
-          {filteredProducts &&
-            filteredProducts.map((el, index) => <Card {...el} key={index} />)}
+          {isCardsLoading
+            ? [...new Array(10)].map((el, index) => <CardLoader key={index} />)
+            : filteredProducts && filteredProducts.map((el, index) => <Card {...el} key={index} />)}
         </MainList>
       </MainContainer>
     </MainEl>

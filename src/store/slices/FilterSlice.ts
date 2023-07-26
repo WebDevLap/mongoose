@@ -1,13 +1,13 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  name: "",
+  name: '',
   priceFrom: 0,
   priceTo: 0,
 };
 
 const FilterSlice = createSlice({
-  name: "filter",
+  name: 'filter',
   initialState,
   reducers: {
     setFilterName: (state, action: PayloadAction<string>) => {
@@ -23,5 +23,4 @@ const FilterSlice = createSlice({
 });
 
 export default FilterSlice.reducer;
-export const { setFilterName, setFilterPriceFrom, setFilterPriceTo } =
-  FilterSlice.actions;
+export const { setFilterName, setFilterPriceFrom, setFilterPriceTo } = FilterSlice.actions;
