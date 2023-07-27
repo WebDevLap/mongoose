@@ -1,12 +1,12 @@
 {
   "files": {
-    "main.js": "/mongoose/static/js/main.d33fb7f8.js",
+    "main.js": "/mongoose/static/js/main.bc8600a2.js",
     "static/media/img1.svg": "/mongoose/static/media/img1.566c5138493a32eb4eca1b61bcafea96.svg",
     "static/media/img2.svg": "/mongoose/static/media/img2.c727b5d523f2113285c7f7baacfeebc8.svg",
     "index.html": "/mongoose/index.html",
-    "main.d33fb7f8.js.map": "/mongoose/static/js/main.d33fb7f8.js.map"
+    "main.bc8600a2.js.map": "/mongoose/static/js/main.bc8600a2.js.map"
   },
   "entrypoints": [
-    "static/js/main.d33fb7f8.js"
+    "static/js/main.bc8600a2.js"
   ]
 }
