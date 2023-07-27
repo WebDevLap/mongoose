@@ -1,26 +1,12 @@
 import React from 'react';
 import { Card } from './Card';
 import CardLoader from './CardLoader';
-import { styled } from 'styled-components';
-import { Container } from '../../UI/components';
 import { getProducts } from '../../API/API';
 import { IProducts } from '../../API/API_TYPE';
 import { Filter } from './Filter';
 import { useAppSelector } from '../../store/store';
-import { FilterTracker } from './FilterTracker';
-
-const MainEl = styled.div`
-  flex: 1 1 auto;
-`;
-
-const MainContainer = styled(Container)``;
-
-const MainList = styled.div`
-  display: flex;
-  gap: 15px;
-  justify-content: center;
-  flex-wrap: wrap;
-`;
+import { MainEl, MainContainer, MainList } from './index.styled';
+import { useDispatch } from 'react-redux';
 
 export const Main = () => {
   const [products, setProducts] = React.useState<IProducts[]>();
@@ -29,11 +15,12 @@ export const Main = () => {
   const filterPriceFrom = useAppSelector((state) => state.filter.priceFrom);
   const [filteredProducts, setFilteredProducts] = React.useState<IProducts[]>();
   const [isCardsLoading, setIsCardsLoading] = React.useState(true);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     (async function () {
       try {
-        const products = await getProducts();
+        const products: IProducts[] = await getProducts();  
         setProducts(products);
       } finally {
         setIsCardsLoading(false);

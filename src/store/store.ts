@@ -1,18 +1,18 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { TypedUseSelectorHook, useSelector } from "react-redux";
-import ThemeSlice from "./slices/ThemeSlice";
-import WeatherSlice from "./slices/WeatherSlice";
-import HeaderSlice from "./slices/HeaderSlice";
-import ModalWindowSlice from "./slices/ModalWindowSlice";
-import FilterSlice from "./slices/FilterSlice";
+import { configureStore } from '@reduxjs/toolkit';
+import { TypedUseSelectorHook, useSelector } from 'react-redux';
+import ThemeSlice from './slices/ThemeSlice';
+import HeaderSlice from './slices/HeaderSlice';
+import ModalWindowSlice from './slices/ModalWindowSlice';
+import FilterSlice from './slices/FilterSlice';
+import CartSlice from './slices/CartSlice';
 
 export const store = configureStore({
   reducer: {
     theme: ThemeSlice,
-    weather: WeatherSlice,
     header: HeaderSlice,
     modalWindow: ModalWindowSlice,
     filter: FilterSlice,
+    cart: CartSlice
   },
 });
 

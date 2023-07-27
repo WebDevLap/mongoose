@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { UI_Funcs } from '../../UI/UI_Funcs/UI_Funcs';
 
 export const CardEl = styled.div``;
@@ -6,22 +6,21 @@ export const CardContainer = styled.div`
   max-width: ${UI_Funcs.pxToRem(320)};
   width: 100%;
   border-radius: ${UI_Funcs.pxToEm(20)};
-  padding: 10px;
+  padding: ${UI_Funcs.pxToEm(10)};
   display: flex;
   flex-direction: column;
   align-items: stretch;
   min-height: ${UI_Funcs.pxToRem(450)};
   height: 100%;
-  border: 1px solid ${({ theme }) => theme.colors.textColor};
+  border: ${UI_Funcs.pxToEm(1)} solid ${({ theme }) => theme.colors.textColor};
 `;
 export const CardImg = styled.img`
   max-width: ${UI_Funcs.pxToRem(270)};
-  max-height: ${UI_Funcs.pxToRem(270)};
-  height: 100%;
   object-fit: cover;
   margin-bottom: ${UI_Funcs.pxToEm(10)};
   border-radius: ${UI_Funcs.pxToEm(20)};
   align-self: center;
+  flex: 1 1 auto;
 `;
 export const CardTitle = styled.h2`
   margin-bottom: ${UI_Funcs.pxToEm(30, 18)};
@@ -38,7 +37,6 @@ export const CardTitle = styled.h2`
 export const CardPrice = styled.div`
   font-size: ${UI_Funcs.pxToRem(22)};
   font-weight: 600;
-  flex: 1 1 auto;
   margin-bottom: ${UI_Funcs.pxToEm(10)};
   color: ${({ theme }) => theme.colors.textColor};
 
@@ -46,6 +44,8 @@ export const CardPrice = styled.div`
     text-decoration: line-through;
     color: ${({ theme }) => theme.colors.grey};
     margin-left: ${UI_Funcs.pxToEm(8)};
+  word-wrap: break-word;
+
   }
   p {
     display: inline;
@@ -60,14 +60,14 @@ export const CardPrice = styled.div`
   }
 `;
 
-export const CardCounter = styled.div`
+export const CardCounterEl = styled.div`
   display: flex;
   padding: ${UI_Funcs.pxToEm(5)};
   border-radius: ${UI_Funcs.pxToEm(10)};
   justify-content: center;
 `;
 export const CardCounterIncrement = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.textColor};
+  border: ${UI_Funcs.pxToEm(1)} solid ${({ theme }) => theme.colors.textColor};
   border-radius: ${UI_Funcs.pxToEm(8)};
   width: ${UI_Funcs.pxToRem(35)};
   height: ${UI_Funcs.pxToRem(35)};
@@ -95,7 +95,7 @@ export const CardCounterIncrement = styled.div`
 `;
 export const CardCounterCount = styled.div`
   width: ${UI_Funcs.pxToRem(45)};
-  border-bottom: 2px solid ${({ theme }) => theme.colors.orange};
+  border-bottom: ${UI_Funcs.pxToEm(2)} solid ${({ theme }) => theme.colors.orange};
   margin: 0 ${UI_Funcs.pxToEm(5, 30)};
   display: flex;
   justify-content: center;
@@ -104,7 +104,7 @@ export const CardCounterCount = styled.div`
   color: ${({ theme }) => theme.colors.textColor};
 `;
 export const CardCounterDecrement = styled.div`
-  border: 1px solid ${({ theme }) => theme.colors.textColor};
+  border: ${UI_Funcs.pxToEm(1)} solid ${({ theme }) => theme.colors.textColor};
   border-radius: ${UI_Funcs.pxToEm(8)};
   width: ${UI_Funcs.pxToRem(35)};
   height: ${UI_Funcs.pxToRem(35)};
@@ -124,7 +124,7 @@ export const CardCounterDecrement = styled.div`
   }
 `;
 
-export const CardAddToCard = styled.div`
+export const CardAddToCard = styled.div<{ isInCart?: boolean }>`
   padding: 0.625em 1.25em;
   font-size: 1.25em;
   color: ${({ theme }) => theme.colors.textColor};
@@ -132,4 +132,12 @@ export const CardAddToCard = styled.div`
   border-radius: 0.625em;
   align-self: center;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  font-weight: 500;
+
+  span {
+    position: relative;
+    z-index: 3;
+  }
 `;

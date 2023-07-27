@@ -1,5 +1,5 @@
-import React from "react";
-import App from "../../App";
+import React from 'react';
+import App from '../../App';
 import {
   Header as Headerr,
   HeaderContainer,
@@ -9,13 +9,12 @@ import {
   BurgerMenu,
   Settings,
   HeaderItem,
-} from "./styled";
-import { ThemeToggler } from "./ThemeToggler";
-import { Logo } from "./Logo";
-import { Search } from "./Search";
-import { useAppSelector } from "../../store/store";
-import { setIsBurgerActive } from "../../store/slices/HeaderSlice";
-import { useDispatch } from "react-redux";
+} from './styled';
+import { ThemeToggler } from './ThemeToggler';
+import { Logo } from './Logo';
+import { useAppSelector } from '../../store/store';
+import { setIsBurgerActive } from '../../store/slices/HeaderSlice';
+import { useDispatch } from 'react-redux';
 
 export const Header: React.FC = () => {
   const isBurgerActive = useAppSelector((state) => state.header.isBurgerActive);
@@ -31,33 +30,22 @@ export const Header: React.FC = () => {
       dispatch(setIsBurgerActive(false));
     }
 
-    document.body.addEventListener("click", (e) => listener(e));
+    document.body.addEventListener('click', (e) => listener(e));
 
-    return document.removeEventListener("click", (e) => listener(e));
+    return document.removeEventListener('click', (e) => listener(e));
   }, []);
-
-  function onAuthClick() {
-    dispatch(setIsBurgerActive(false));
-  }
-  const imgae = "https://img.icons8.com/?size=1x&id=nHPBN6xIs3Mg&format=png";
 
   return (
     <Headerr>
       <HeaderContainer>
         <Logo />
-        <Nav
-          active={isBurgerActive}
-          onClick={(e) => e.stopPropagation()}
-          ref={navRef}
-        >
+        <Nav active={isBurgerActive} ref={navRef}>
           <Logo secondType />
           <ThemeToggler />
-          <HeaderItem to='/card'>Корзина</HeaderItem>
+          <HeaderItem to="/cart">Корзина</HeaderItem>
           <HeaderAuth>
-            <HeaderAuthSign onClick={onAuthClick} to="/signUp">
-              Зарегистрироваться
-            </HeaderAuthSign>
-            <HeaderAuthSign onClick={onAuthClick} orange to="/signIn">
+            <HeaderAuthSign to="/signUp">Зарегистрироваться</HeaderAuthSign>
+            <HeaderAuthSign orange to="/signIn">
               Войти
             </HeaderAuthSign>
           </HeaderAuth>

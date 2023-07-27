@@ -29,6 +29,7 @@ const VoiceWindowTitle = styled.h2`
   color: ${({ theme }) => theme.colors.textColor};
   b {
     color: ${({ theme }) => theme.colors.orange};
+    word-break: break-all;
   }
 
   ${UI_Funcs.phoneMedia(css`

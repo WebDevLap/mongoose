@@ -81,7 +81,7 @@ const TogglerElement = styled.div<{ themeType: ThemeType }>`
     `}
 `;
 
-export const ThemeToggler: React.FC = () => {
+export const ThemeToggler: React.FC<{onClick?:Function}> = ({onClick}) => {
   const theme = useAppSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
 
@@ -92,7 +92,7 @@ export const ThemeToggler: React.FC = () => {
   }
 
   return (
-    <Theme>
+    <Theme onClick={(e) => e.stopPropagation()}>
       <TogglerText>Тема </TogglerText>
       <Toggler onClick={toggleClick} themeType={theme}>
         <TogglerElement themeType={theme}></TogglerElement>

@@ -1,10 +1,9 @@
-import React from "react";
-import { styled } from "styled-components";
-import { Container } from "../../UI/components";
-import { UI_Funcs } from "../../UI/UI_Funcs/UI_Funcs";
-import { VoiceWindow } from "./VoiceWindow";
-import { useAppSelector } from "../../store/store";
-import { Settings } from "../Header/styled";
+import React from 'react';
+import { styled } from 'styled-components';
+import { Container } from '../../UI/components';
+import { UI_Funcs } from '../../UI/UI_Funcs/UI_Funcs';
+import { VoiceWindow } from './VoiceWindow';
+import { useAppSelector } from '../../store/store';
 
 const FooterEl = styled.footer``;
 
@@ -37,38 +36,31 @@ const FooterItem = styled.li`
 
 export const Footer: React.FC = () => {
   const [isVoiceActive, setIsVoiceActive] = React.useState<boolean>(false);
-  const [link, setLink] = React.useState<string>("");
+  const [link, setLink] = React.useState<string>('');
   function onFooterItemClick(link: string) {
     setLink(link);
-    setIsVoiceActive(!isVoiceActive);
+    setIsVoiceActive((prev) => !prev);
   }
   const isDark = useAppSelector((state) => state.theme.theme);
 
   return (
     <FooterEl>
-      <VoiceWindow
-        link={link}
-        active={isVoiceActive}
-        setActive={setIsVoiceActive}
-      />
+      <VoiceWindow link={link} active={isVoiceActive} setActive={setIsVoiceActive} />
       <FooterContainer>
         <FooterList>
-          <FooterItem>
-            Мой гитхаб:{" "}
-            <span onClick={(e: any) => onFooterItemClick(e.target.innerText)}>
+          <FooterItem onClick={(e: any) => onFooterItemClick(e.target.innerText)}>
+            Мой гитхаб:{' '}
+            <span >
               https://github.com/WebDevLap/
             </span>
           </FooterItem>
-          <FooterItem>
-            Мой телеграмм:{" "}
-            <span onClick={(e: any) => onFooterItemClick(e.target.innerText)}>
+          <FooterItem onClick={(e: any) => onFooterItemClick(e.target.innerText)}>
+            Мой телеграмм:{' '}
+            <span >
               https://t.me/AkhmedFr
             </span>
           </FooterItem>
         </FooterList>
-        <Settings isDark={isDark === "dark" ? true : false} to="/settings">
-          Настройки
-        </Settings>
       </FooterContainer>
     </FooterEl>
   );

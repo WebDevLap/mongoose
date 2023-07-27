@@ -1,7 +1,7 @@
-import React from "react";
-import styled, { css } from "styled-components";
-import { NavLink } from "react-router-dom";
-import { UI_Funcs } from "../../UI/UI_Funcs/UI_Funcs";
+import React from 'react';
+import styled, { css } from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import { UI_Funcs } from '../../UI/UI_Funcs/UI_Funcs';
 
 const HeaderLogo = styled(NavLink)<{ secondType: boolean }>`
   display: inline-flex;
@@ -23,7 +23,7 @@ const HeaderLogo = styled(NavLink)<{ secondType: boolean }>`
       ${UI_Funcs.pcMedia(css`
         display: flex;
         margin-bottom: ${UI_Funcs.pxToEm(40)};
-        border: 2px solid ${({theme}) => theme.colors.lightGrey};
+        border: 2px solid ${({ theme }) => theme.colors.lightGrey};
         padding: ${UI_Funcs.pxToEm(15)};
         border-radius: ${UI_Funcs.pxToEm(15)};
         margin-right: 0;
@@ -40,21 +40,11 @@ const HeaderLogoText = styled.p<{ secondType: boolean }>`
   font-size: ${UI_Funcs.pxToRem(25)};
   font-weight: 700;
   color: ${({ theme }) => theme.colors.textColor};
-
-  ${(props) =>
-    !props.secondType &&
-    css`
-      ${UI_Funcs.tabletMedia(css`
-        display: none;
-      `)}
-    `}
 `;
 
-export const Logo: React.FC<{ secondType?: boolean }> = ({
-  secondType = false,
-}) => {
+export const Logo: React.FC<{ secondType?: boolean }> = ({ secondType = false }) => {
   return (
-    <HeaderLogo to="/" secondType={secondType}>
+    <HeaderLogo to="/" secondType={secondType} translate="no">
       <HeaderLogoImg
         src="https://img.icons8.com/?size=1x&id=kYJdhqiRLBFn&format=png"
         alt="weth logo"
