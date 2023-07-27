@@ -3,7 +3,6 @@ import { Container } from '../../UI/components';
 import { UI_Funcs } from '../../UI/UI_Funcs/UI_Funcs';
 
 export const CartItemEl = styled.div<{ isDeliting: boolean }>`
-  /* transform: scale(1); */
   max-height: 500px;
   position: relative;
   z-index: 5;
@@ -15,7 +14,6 @@ export const CartItemEl = styled.div<{ isDeliting: boolean }>`
     props.isDeliting &&
     css`
       z-index: 2;
-
       max-height: 0;
     `}
 `;

@@ -1,7 +1,6 @@
-import React from "react";
-import { styled } from "styled-components";
-import { Container } from "../../UI/components";
-import { Input, InputField } from "../../components/Inputs";
+import React from 'react';
+import { InputField } from '../../components/Input.styled';
+import { Input } from '../../components/Inputs';
 import {
   SignUpContainer,
   SignUpEl,
@@ -9,42 +8,36 @@ import {
   SignUpList,
   SignUpSubmit,
   SignUpTitle,
-} from "../SignUp/styled";
-import { emailValider, passwordValider } from "../SignUp";
-import axios from "axios";
-import { USERS_DATA } from "../../API/API";
-import { useDispatch } from "react-redux";
-import {
-  addModalWindowItem,
-  removeModalWindowItem,
-} from "../../store/slices/ModalWindowSlice";
+} from '../SignUp/styled';
+import { emailValider, passwordValider } from '../SignUp';
+import axios from 'axios';
+import { USERS_DATA } from '../../API/API';
+import { useDispatch } from 'react-redux';
+import { addModalWindowItem, removeModalWindowItem } from '../../store/slices/ModalWindowSlice';
 
-const SignInEl = styled.div``;
-
-const SignInContainer = styled(Container)``;
 
 export const SignIn = () => {
   const [isEmailFocus, setIsEmailFocus] = React.useState(false);
-  const [email, setEmail] = React.useState("");
-  const [emailError, setEmailError] = React.useState("Ошибка!");
+  const [email, setEmail] = React.useState('');
+  const [emailError, setEmailError] = React.useState('Ошибка!');
   const [isEmailError, setIsEmailError] = React.useState(false);
 
   const [isPasswordFocus, setIsPasswordFocus] = React.useState(false);
-  const [password, setPassword] = React.useState("");
-  const [passwordError, setPasswordError] = React.useState("Ошибка!");
+  const [password, setPassword] = React.useState('');
+  const [passwordError, setPasswordError] = React.useState('Ошибка!');
   const [isPasswordError, setIsPasswordError] = React.useState(false);
 
   const [isSubmitDisabled, setIsSubmitDisabled] = React.useState(true);
-  const [globError, setGlobError] = React.useState("");
+  const [globError, setGlobError] = React.useState('');
   const dispatch = useDispatch();
 
   function InputsFocus(e: any) {
     switch (e.target.name) {
-      case "email":
+      case 'email':
         setIsEmailError(false);
         setIsEmailFocus(true);
         break;
-      case "password":
+      case 'password':
         setIsPasswordError(false);
         setIsPasswordFocus(true);
         break;
@@ -52,7 +45,7 @@ export const SignIn = () => {
   }
 
   React.useEffect(() => {
-    if (passwordError === "Валидное поле!" && emailError === "Валидное поле!") {
+    if (passwordError === 'Валидное поле!' && emailError === 'Валидное поле!') {
       setIsSubmitDisabled(false);
     } else {
       setIsSubmitDisabled(true);
@@ -61,11 +54,11 @@ export const SignIn = () => {
 
   function InputsBlur(e: any) {
     switch (e.target.name) {
-      case "email":
+      case 'email':
         setIsEmailError(true);
         setIsEmailFocus(false);
         break;
-      case "password":
+      case 'password':
         setIsPasswordError(true);
         setIsPasswordFocus(false);
         break;
@@ -74,10 +67,10 @@ export const SignIn = () => {
 
   function InputsChange(e: any) {
     switch (e.target.name) {
-      case "email":
+      case 'email':
         setEmail(e.target.value);
         break;
-      case "password":
+      case 'password':
         setPassword(e.target.value);
         break;
     }
@@ -96,7 +89,7 @@ export const SignIn = () => {
 
     (async function () {
       try {
-        dispatch(addModalWindowItem("Проверка данных"));
+        dispatch(addModalWindowItem('Проверка данных'));
         const { data: usersData } = await axios.get(USERS_DATA);
 
         const upUsersData = usersData.forEach((el: any) => {
@@ -111,10 +104,10 @@ export const SignIn = () => {
           throw new Error();
         }
       } catch (err) {
-        console.log("sign in error");
-        setGlobError("Ошибка в почте или пароле");
+        console.log('sign in error');
+        setGlobError('Ошибка в почте или пароле');
       } finally {
-        dispatch(removeModalWindowItem("Проверка данных"));
+        dispatch(removeModalWindowItem('Проверка данных'));
       }
     })();
   }
@@ -123,9 +116,7 @@ export const SignIn = () => {
     <SignUpEl>
       <SignUpContainer>
         <SignUpTitle>Войти</SignUpTitle>
-        <SignUpGlobError active={globError.length > 0}>
-          {globError}
-        </SignUpGlobError>
+        <SignUpGlobError active={globError.length > 0}>{globError}</SignUpGlobError>
         <form action="" onSubmit={(e) => formSubmit(e)}>
           <SignUpList>
             <Input
@@ -134,8 +125,7 @@ export const SignIn = () => {
               setInput={setEmail}
               input={email}
               isInputFocus={isEmailFocus}
-              placehold="Введите почту"
-            >
+              placehold="Введите почту">
               <InputField
                 name="email"
                 value={email}
@@ -150,8 +140,7 @@ export const SignIn = () => {
               setInput={setPassword}
               input={password}
               isInputFocus={isPasswordFocus}
-              placehold="Введите пароль"
-            >
+              placehold="Введите пароль">
               <InputField
                 name="password"
                 value={password}

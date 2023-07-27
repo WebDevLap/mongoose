@@ -21,12 +21,10 @@ import { useAppSelector } from '../../store/store';
 export const CartItem: React.FC<IItem> = (props) => {
   const { id, imageUrl, name, price, priceWidthDiscount, count } = props;
   const [isDeliting, setIsDeleting] = React.useState(false);
-
-  const dispatch = useDispatch();
-
   const [conter, setConter] = React.useState(0);
 
   const cartCounters = useAppSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     for (let index = 0; index < cartCounters.length; index++) {
@@ -39,16 +37,16 @@ export const CartItem: React.FC<IItem> = (props) => {
   }, [cartCounters]);
 
   React.useEffect(() => {
-    let isIdInCart = false;
+    let isIDInCart = false;
 
     for (const el of cartCounters) {
       if (el.id === id) {
-        isIdInCart = true;
+        isIDInCart = true;
         break;
       }
     }
 
-    if (!isIdInCart) {
+    if (!isIDInCart) {
       setConter(0);
     }
   }, [cartCounters]);
@@ -80,7 +78,7 @@ export const CartItem: React.FC<IItem> = (props) => {
   return (
     <CartItemEl isDeliting={isDeliting}>
       <CartItemContainer>
-        <CartItemImg src={imageUrl} alt="image url error" />
+        <CartItemImg src={Array.isArray(imageUrl) ? imageUrl[0] : imageUrl} alt="image url error" />
         <CartItemContent>
           <CartItemTitle>{name}</CartItemTitle>
           <WhichPrice price={price} priceWidthDiscount={priceWidthDiscount} />

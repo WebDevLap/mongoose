@@ -1,5 +1,4 @@
 import React from 'react';
-import App from '../../App';
 import {
   Header as Headerr,
   HeaderContainer,
@@ -7,9 +6,8 @@ import {
   HeaderAuthSign,
   Nav,
   BurgerMenu,
-  Settings,
   HeaderItem,
-} from './styled';
+} from './index.styled';
 import { ThemeToggler } from './ThemeToggler';
 import { Logo } from './Logo';
 import { useAppSelector } from '../../store/store';
@@ -18,8 +16,9 @@ import { useDispatch } from 'react-redux';
 
 export const Header: React.FC = () => {
   const isBurgerActive = useAppSelector((state) => state.header.isBurgerActive);
-  const dispatch = useDispatch();
   const navRef = React.useRef(null);
+  const dispatch = useDispatch();
+  
   function onBurgerClick(e: any) {
     dispatch(setIsBurgerActive(true));
     e.stopPropagation();

@@ -11,6 +11,9 @@ import {
   CardCounterCount,
   CardCounterDecrement,
   CardAddToCard,
+  ImgContainer,
+  CardImgChoice,
+  CardImgChoiceImg,
 } from './Card.styled';
 import { useAppSelector } from '../../store/store';
 import { useDispatch } from 'react-redux';
@@ -18,11 +21,11 @@ import { addCartItemCount, removeCartItemCount } from '../../store/slices/CartSl
 
 export const Card: React.FC<IProducts> = (props) => {
   const { imageUrl, name, price, priceWidthDiscount, id } = props;
-  const dispatch = useDispatch();
-
   const [conter, setConter] = React.useState(0);
+  const [activeImgForManyImgs, setActiveImgForManyImgs] = React.useState(0);
 
   const cartCounters = useAppSelector((state) => state.cart.items);
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
     for (let index = 0; index < cartCounters.length; index++) {
@@ -48,6 +51,7 @@ export const Card: React.FC<IProducts> = (props) => {
       setConter(0);
     }
   }, [cartCounters]);
+
   function onIncrementClick() {
     if (conter > 98) return;
     dispatch(
@@ -67,24 +71,34 @@ export const Card: React.FC<IProducts> = (props) => {
 
   const filterName = useAppSelector((state) => state.filter.name);
 
-  const filtered = (str: string) => {
-    const index = name.toLowerCase().indexOf(filterName.toLowerCase());
-    const strLow = str.toLowerCase();
-
-    return (
-      <div>
-        {strLow.slice(0, index)}
-        <mark>{strLow.slice(index, index + filterName.length)}</mark>
-        {strLow.slice(index + filterName.length)}
-      </div>
-    );
-  };
-
   return (
     <CardEl translate="no">
       <CardContainer>
-        <CardImg src={imageUrl} />
-        <CardTitle>{filtered(name)}</CardTitle>
+        <ImgContainer>
+          {Array.isArray(imageUrl) ? (
+            imageUrl.map((el, index) => (
+              <CardImg src={el} active={index === activeImgForManyImgs} />
+            ))
+          ) : (
+            <CardImg src={imageUrl} active={true} />
+          )}
+          {Array.isArray(imageUrl) && (
+            <CardImgChoice>
+              {imageUrl.map((el, index) => (
+                <CardImgChoiceImg
+                  src={el}
+                  key={index}
+                  active={activeImgForManyImgs === index}
+                  onClick={() => setActiveImgForManyImgs(index)}
+                />
+              ))}
+            </CardImgChoice>
+          )}
+        </ImgContainer>
+
+        <CardTitle>
+          <Filtered str={name} filterStr={filterName} />
+        </CardTitle>
         <WhichPrice price={price} priceWidthDiscount={priceWidthDiscount}></WhichPrice>
         <CardCounter
           conter={conter}
@@ -93,6 +107,24 @@ export const Card: React.FC<IProducts> = (props) => {
         />
       </CardContainer>
     </CardEl>
+  );
+};
+
+interface IFiltered {
+  str: string;
+  filterStr: string;
+}
+
+const Filtered: React.FC<IFiltered> = ({ str, filterStr }) => {
+  const strLow = str.toLowerCase();
+  const index = strLow.indexOf(filterStr.toLowerCase());
+
+  return (
+    <div>
+      {strLow.slice(0, index)}
+      <mark>{strLow.slice(index, index + filterStr.length)}</mark>
+      {strLow.slice(index + filterStr.length)}
+    </div>
   );
 };
 

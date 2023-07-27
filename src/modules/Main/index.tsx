@@ -10,13 +10,14 @@ import { useDispatch } from 'react-redux';
 
 export const Main = () => {
   const [products, setProducts] = React.useState<IProducts[]>();
+  const [filteredProducts, setFilteredProducts] = React.useState<IProducts[]>();
+  const [isCardsLoading, setIsCardsLoading] = React.useState(true);
+  
+  const dispatch = useDispatch();
+  
   const filterName = useAppSelector((state) => state.filter.name);
   const filterPriceTo = useAppSelector((state) => state.filter.priceTo);
   const filterPriceFrom = useAppSelector((state) => state.filter.priceFrom);
-  const [filteredProducts, setFilteredProducts] = React.useState<IProducts[]>();
-  const [isCardsLoading, setIsCardsLoading] = React.useState(true);
-  const dispatch = useDispatch();
-
   React.useEffect(() => {
     (async function () {
       try {

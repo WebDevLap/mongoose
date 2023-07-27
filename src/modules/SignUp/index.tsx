@@ -1,5 +1,6 @@
-import React from "react";
-import { Input, InputField } from "../../components/Inputs";
+import React from 'react';
+import { Input } from '../../components/Inputs';
+import { InputField } from '../../components/Input.styled';
 import {
   SignUpEl,
   SignUpContainer,
@@ -7,98 +8,90 @@ import {
   SignUpTitle,
   SignUpGlobError,
   SignUpSubmit,
-} from "./styled";
-import { USERS_DATA } from "../../API/API";
-import axios from "axios";
-import {
-  addModalWindowItem,
-  removeModalWindowItem,
-} from "../../store/slices/ModalWindowSlice";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-export const availableNameLetters =
-  "qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю_";
+} from './styled';
+import { USERS_DATA } from '../../API/API';
+import axios from 'axios';
+import { addModalWindowItem, removeModalWindowItem } from '../../store/slices/ModalWindowSlice';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+export const availableNameLetters = 'qwertyuiopasdfghjklzxcvbnmйцукенгшщзхъфывапролджэячсмитьбю_';
 
 export function emailValider(email: string, setEmailError: Function) {
   if (email.length === 0) {
-    setEmailError("Поле пустое!");
-  } else if (
-    !/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.toLowerCase())
-  ) {
-    setEmailError("Неверная почта!");
+    setEmailError('Поле пустое!');
+  } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email.toLowerCase())) {
+    setEmailError('Неверная почта!');
   } else {
-    setEmailError("Валидное поле!");
+    setEmailError('Валидное поле!');
   }
 }
 
 export function passwordValider(password: string, setPasswordError: Function) {
   if (password.length === 0) {
-    setPasswordError("Пустое поле");
+    setPasswordError('Пустое поле');
   } else if (password.length < 6) {
-    setPasswordError("Не меньше 7 символов");
+    setPasswordError('Не меньше 7 символов');
   } else {
-    setPasswordError("Валидное поле!");
+    setPasswordError('Валидное поле!');
   }
 }
 
 export const SignUp = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = React.useState("");
+  const [email, setEmail] = React.useState('');
   const [isEmailFocus, setIsEmailFocus] = React.useState(false);
-  const [emailError, setEmailError] = React.useState<string>("Ошибка");
+  const [emailError, setEmailError] = React.useState<string>('Ошибка');
   const [IsEmailError, setIsEmailError] = React.useState<boolean>(false);
 
-  const [name, setName] = React.useState("");
+  const [name, setName] = React.useState('');
   const [isNameFocus, setIsNameFocus] = React.useState(false);
-  const [nameError, setNameError] = React.useState<string>("Ошибка");
+  const [nameError, setNameError] = React.useState<string>('Ошибка');
   const [IsNameError, setIsNameError] = React.useState<boolean>(false);
 
-  const [password1, setPassword1] = React.useState("");
+  const [password1, setPassword1] = React.useState('');
   const [isPassword1Focus, setIsPassword1Focus] = React.useState(false);
-  const [password1Error, setPassword1Error] = React.useState<string>("Ошибка");
-  const [IsPassword1Error, setIsPassword1Error] =
-    React.useState<boolean>(false);
+  const [password1Error, setPassword1Error] = React.useState<string>('Ошибка');
+  const [IsPassword1Error, setIsPassword1Error] = React.useState<boolean>(false);
 
-  const [password2, setPassword2] = React.useState("");
+  const [password2, setPassword2] = React.useState('');
   const [isPassword2Focus, setIsPassword2Focus] = React.useState(false);
-  const [password2Error, setPassword2Error] = React.useState<string>("Ошибка");
-  const [IsPassword2Error, setIsPassword2Error] =
-    React.useState<boolean>(false);
+  const [password2Error, setPassword2Error] = React.useState<string>('Ошибка');
+  const [IsPassword2Error, setIsPassword2Error] = React.useState<boolean>(false);
 
   const [isSubmitDisabled, setIsSubmitDisabled] = React.useState<boolean>(true);
   const dispatch = useDispatch();
 
   interface IGlobError {
     value: string;
-    state: "email" | "name" | "password1" | "password2" | "";
+    state: 'email' | 'name' | 'password1' | 'password2' | '';
   }
 
   const [globError, setGlobError] = React.useState<IGlobError>({
-    value: "",
-    state: "",
+    value: '',
+    state: '',
   });
 
   function onInputChange(e: any, f: (v: string) => void) {
     switch (e.target.name) {
-      case "email":
+      case 'email':
         f(e.target.value);
         break;
-      case "name":
+      case 'name':
         if (
           availableNameLetters
-            .split("")
+            .split('')
             .includes(e.target.value.toLowerCase()[e.target.value.length - 1])
         ) {
           f(e.target.value);
         }
         if (e.target.value.length === 0) {
-          setName("");
+          setName('');
         }
         break;
-      case "password1":
+      case 'password1':
         f(e.target.value);
         break;
-      case "password2":
+      case 'password2':
         f(e.target.value);
         break;
     }
@@ -106,18 +99,18 @@ export const SignUp = () => {
 
   React.useEffect(() => {
     emailValider(email, setEmailError);
-    if (globError.state === "email") {
-      setGlobError({ value: "", state: "" });
+    if (globError.state === 'email') {
+      setGlobError({ value: '', state: '' });
     }
   }, [email]);
 
   React.useEffect(() => {
     if (name.length === 0) {
-      setNameError("Пустое поле");
+      setNameError('Пустое поле');
     } else if (name.length > 1) {
-      setNameError("Валидное поле!");
+      setNameError('Валидное поле!');
     } else {
-      setNameError("Слишком мало символов");
+      setNameError('Слишком мало символов');
     }
   }, [name]);
 
@@ -125,29 +118,29 @@ export const SignUp = () => {
     passwordValider(password1, setPassword1Error);
     if (password1.length > 0) {
       if (password2 !== password1) {
-        setPassword2Error("Пароли не совпадают");
+        setPassword2Error('Пароли не совпадают');
       } else {
-        setPassword2Error("Валидное поле!");
+        setPassword2Error('Валидное поле!');
       }
     }
   }, [password1]);
 
   React.useEffect(() => {
     if (password2.length === 0) {
-      setPassword2Error("Пустое поле");
+      setPassword2Error('Пустое поле');
     } else if (password2 !== password1) {
-      setPassword2Error("Пароли не совпадают");
+      setPassword2Error('Пароли не совпадают');
     } else {
-      setPassword2Error("Валидное поле!");
+      setPassword2Error('Валидное поле!');
     }
   }, [password2]);
 
   React.useEffect(() => {
     if (
-      emailError === "Валидное поле!" &&
-      nameError === "Валидное поле!" &&
-      password1Error === "Валидное поле!" &&
-      password2Error === "Валидное поле!"
+      emailError === 'Валидное поле!' &&
+      nameError === 'Валидное поле!' &&
+      password1Error === 'Валидное поле!' &&
+      password2Error === 'Валидное поле!'
     ) {
       setIsSubmitDisabled(false);
     } else {
@@ -157,20 +150,20 @@ export const SignUp = () => {
 
   function onInputBlur(e: any) {
     switch (e.target.name) {
-      case "email":
+      case 'email':
         setIsEmailFocus(false);
         setIsEmailError(true);
         break;
-      case "name":
+      case 'name':
         setIsNameFocus(false);
         setIsNameError(true);
         break;
-      case "password1":
+      case 'password1':
         setIsPassword1Focus(false);
         setIsPassword1Error(true);
 
         break;
-      case "password2":
+      case 'password2':
         setIsPassword2Focus(false);
         setIsPassword2Error(true);
 
@@ -180,19 +173,19 @@ export const SignUp = () => {
 
   function onInputFocus(e: any) {
     switch (e.target.name) {
-      case "email":
+      case 'email':
         setIsEmailFocus(true);
         setIsEmailError(false);
         break;
-      case "name":
+      case 'name':
         setIsNameFocus(true);
         setIsNameError(false);
         break;
-      case "password1":
+      case 'password1':
         setIsPassword1Focus(true);
         setIsPassword1Error(false);
         break;
-      case "password2":
+      case 'password2':
         setIsPassword2Focus(true);
         setIsPassword2Error(false);
         break;
@@ -203,32 +196,32 @@ export const SignUp = () => {
 
     (async function () {
       try {
-        dispatch(addModalWindowItem("Проверка данных"));
+        dispatch(addModalWindowItem('Проверка данных'));
 
         const { data: usersData } = await axios.get(USERS_DATA);
 
         usersData.forEach((el: any) => {
           if (el.email.toLowerCase() === email.toLowerCase()) {
             setGlobError({
-              value: "Пользователь с такой почтой уже существует",
-              state: "email",
+              value: 'Пользователь с такой почтой уже существует',
+              state: 'email',
             });
             throw new Error();
           }
         });
-        dispatch(removeModalWindowItem("Проверка данных"));
-        dispatch(addModalWindowItem("Добавление нового пользователя"));
+        dispatch(removeModalWindowItem('Проверка данных'));
+        dispatch(addModalWindowItem('Добавление нового пользователя'));
         const { data: postUsers } = await axios.post(USERS_DATA, {
           email: email,
           name: name,
           password: password1,
         });
-        navigate("/");
+        navigate('/');
       } catch (err) {
-        console.log("register error");
+        console.log('register error');
       } finally {
-        dispatch(removeModalWindowItem("Проверка данных"));
-        dispatch(removeModalWindowItem("Добавление нового пользователя"));
+        dispatch(removeModalWindowItem('Проверка данных'));
+        dispatch(removeModalWindowItem('Добавление нового пользователя'));
       }
     })();
   }
@@ -238,7 +231,7 @@ export const SignUp = () => {
       <SignUpContainer>
         <SignUpTitle>Регистрация</SignUpTitle>
         <form action="#" onSubmit={onSubmit}>
-          <SignUpGlobError active={globError.value === "" ? false : true}>
+          <SignUpGlobError active={globError.value === '' ? false : true}>
             {globError.value}
           </SignUpGlobError>
           <SignUpList>
@@ -248,8 +241,7 @@ export const SignUp = () => {
               input={email}
               setInput={setEmail}
               error={emailError}
-              isError={IsEmailError}
-            >
+              isError={IsEmailError}>
               <InputField
                 name="email"
                 value={email}
@@ -265,8 +257,7 @@ export const SignUp = () => {
               input={name}
               setInput={setName}
               error={nameError}
-              isError={IsNameError}
-            >
+              isError={IsNameError}>
               <InputField
                 name="name"
                 value={name}
@@ -282,8 +273,7 @@ export const SignUp = () => {
               input={password1}
               setInput={setPassword1}
               error={password1Error}
-              isError={IsPassword1Error}
-            >
+              isError={IsPassword1Error}>
               <InputField
                 name="password1"
                 value={password1}
@@ -299,8 +289,7 @@ export const SignUp = () => {
               input={password2}
               setInput={setPassword2}
               error={password2Error}
-              isError={IsPassword2Error}
-            >
+              isError={IsPassword2Error}>
               <InputField
                 name="password2"
                 value={password2}

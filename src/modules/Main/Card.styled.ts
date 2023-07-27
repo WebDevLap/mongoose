@@ -14,14 +14,59 @@ export const CardContainer = styled.div`
   height: 100%;
   border: ${UI_Funcs.pxToEm(1)} solid ${({ theme }) => theme.colors.textColor};
 `;
-export const CardImg = styled.img`
-  max-width: ${UI_Funcs.pxToRem(270)};
+
+export const ImgContainer = styled.div`
+  flex: 1 1 auto;
+  position: relative;
+  align-self: center;
+  width: 270px;
+`;
+
+export const CardImg = styled.img<{active: boolean}>`
   object-fit: cover;
   margin-bottom: ${UI_Funcs.pxToEm(10)};
   border-radius: ${UI_Funcs.pxToEm(20)};
-  align-self: center;
-  flex: 1 1 auto;
+
+  max-width: ${UI_Funcs.pxToRem(270)};
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+
+  ${props => props.active && css`
+  opacity: 1;
+  `}
 `;
+
+export const CardImgChoice = styled.div`
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  height: 50px;
+  display: flex;
+  gap: 5px;
+`;
+
+export const CardImgChoiceImg = styled.img<{ active: boolean }>`
+  height: 50px;
+  border-radius: 10px;
+  border: 3px solid ${({ theme }) => theme.colors.grey};
+  cursor: pointer;
+
+  &:hover {
+    border: 3px solid ${({ theme }) => theme.colors.blue};
+  }
+
+  ${(props) =>
+    props.active &&
+    css`
+      border: 3px solid ${({ theme }) => theme.colors.orange};
+    `}
+`;
+
 export const CardTitle = styled.h2`
   margin-bottom: ${UI_Funcs.pxToEm(30, 18)};
   text-align: center;
@@ -44,8 +89,7 @@ export const CardPrice = styled.div`
     text-decoration: line-through;
     color: ${({ theme }) => theme.colors.grey};
     margin-left: ${UI_Funcs.pxToEm(8)};
-  word-wrap: break-word;
-
+    word-wrap: break-word;
   }
   p {
     display: inline;
