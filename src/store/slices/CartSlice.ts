@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IProducts } from '../../API/API_TYPE';
-import { getCartItemsLS } from '../../hooks/getCartItemsLS';
+import { getCartItemsLS } from '../../utils/getCartItemsLS';
 
 export interface IItem extends IProducts {
   count: number;
@@ -8,10 +8,14 @@ export interface IItem extends IProducts {
 
 interface IInitialState {
   items: IItem[];
+  totalPrice: number;
+  totalProducts: number;
 }
 
 const initialState: IInitialState = {
   items: getCartItemsLS(),
+  totalPrice: 0,
+  totalProducts: 0,
 };
 
 const FilterSlice = createSlice({
@@ -44,8 +48,17 @@ const FilterSlice = createSlice({
         }
       }
     },
+    deleteCartItem: (state, action: PayloadAction<number>) => {
+      state.items = state.items.filter((el) => el.id !== action.payload);
+    },
+    setCartTotalPrice: (state, action: PayloadAction<number>) => {
+      state.totalPrice = action.payload;
+    },
+    setCartTotalProducts: (state,action: PayloadAction<number>) => {
+      state.totalProducts = action.payload
+    }
   },
 });
 
 export default FilterSlice.reducer;
-export const { addCartItemCount, removeCartItemCount } = FilterSlice.actions;
+export const { addCartItemCount, removeCartItemCount, deleteCartItem, setCartTotalPrice, setCartTotalProducts } = FilterSlice.actions;

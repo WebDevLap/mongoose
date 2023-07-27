@@ -1,5 +1,10 @@
 import React from 'react';
-import { IItem, addCartItemCount, removeCartItemCount } from '../../store/slices/CartSlice';
+import {
+  IItem,
+  addCartItemCount,
+  deleteCartItem,
+  removeCartItemCount,
+} from '../../store/slices/CartSlice';
 import { CardCounter, WhichPrice } from '../Main/Card';
 import {
   CartItemEl,
@@ -7,12 +12,15 @@ import {
   CartItemImg,
   CartItemContent,
   CartItemTitle,
+  CartFooter,
+  CartDeleteElement,
 } from './CartItem.styled';
 import { useDispatch } from 'react-redux';
 import { useAppSelector } from '../../store/store';
 
 export const CartItem: React.FC<IItem> = (props) => {
   const { id, imageUrl, name, price, priceWidthDiscount, count } = props;
+  const [isDeliting, setIsDeleting] = React.useState(false);
 
   const dispatch = useDispatch();
 
@@ -44,7 +52,7 @@ export const CartItem: React.FC<IItem> = (props) => {
       setConter(0);
     }
   }, [cartCounters]);
-  
+
   function onIncrementClick() {
     if (conter > 98) return;
     dispatch(
@@ -62,18 +70,28 @@ export const CartItem: React.FC<IItem> = (props) => {
     dispatch(removeCartItemCount(id));
   }
 
+  function onDeleteCartElClick() {
+    setIsDeleting(true);
+    setTimeout(() => {
+      dispatch(deleteCartItem(id));
+    }, 1000);
+  }
+
   return (
-    <CartItemEl>
+    <CartItemEl isDeliting={isDeliting}>
       <CartItemContainer>
-        <CartItemImg src={imageUrl} />
+        <CartItemImg src={imageUrl} alt="image url error" />
         <CartItemContent>
           <CartItemTitle>{name}</CartItemTitle>
           <WhichPrice price={price} priceWidthDiscount={priceWidthDiscount} />
-          <CardCounter
-            conter={conter}
-            onIncrementClick={onIncrementClick}
-            onDecrementClick={onDecrementClick}
-          />
+          <CartFooter>
+            <CardCounter
+              conter={conter}
+              onIncrementClick={onIncrementClick}
+              onDecrementClick={onDecrementClick}
+            />
+            <CartDeleteElement onClick={onDeleteCartElClick}>Удалить с корзины</CartDeleteElement>
+          </CartFooter>
         </CartItemContent>
       </CartItemContainer>
     </CartItemEl>

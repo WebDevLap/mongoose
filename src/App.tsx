@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 import qs from 'qs';
 import { setFilterName, setFilterPriceFrom, setFilterPriceTo } from './store/slices/FilterSlice';
 import { Cart } from './modules/Cart';
+import { setCartTotalPrice, setCartTotalProducts } from './store/slices/CartSlice';
 
 const AppEl = styled.div`
   min-height: 97vh;
@@ -98,7 +99,13 @@ function App() {
   const cartItems = useAppSelector((state) => state.cart.items);
 
   React.useEffect(() => {
-    localStorage.setItem('cartItems', JSON.stringify( cartItems ));
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+    const totalPrice: number = cartItems.reduce((total, el) => total + +el.price * el.count, 0);
+    dispatch(setCartTotalPrice(totalPrice));
+
+    const totalProducts: number = cartItems.reduce((total, el) => total + el.count, 0);
+    dispatch(setCartTotalProducts(totalProducts));
   }, [cartItems]);
 
   return (
